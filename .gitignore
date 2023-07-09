@@ -1,0 +1,4 @@
+pkgs
+.pyc
+.DS_Store
+data
