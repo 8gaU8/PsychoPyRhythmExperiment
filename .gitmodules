@@ -1,3 +1,6 @@
 [submodule "rhythm_trial_code_sub"]
 	path = rhythm_trial_code/rhythm_trial_code_sub
 	url = https://github.com/8gaU8/rhythm_trial_code
+[submodule "rhythm_trial_code"]
+	path = rhythm_trial_code
+	url = https://github.com/8gaU8/rhythm_trial_code
