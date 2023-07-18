@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on 日  7/ 9 20:32:20 2023
+    on 火  7/18 15:56:57 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -36,7 +36,7 @@ from psychopy.hardware import keyboard
 import sys
 sys.path.append("./pkgs")
 
-from main import run_stim
+from rhythm_trial_code.main import run_stim
 sound_stim_routine_index = 0
 import numpy as np
 np.random.seed(1)
@@ -69,7 +69,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='/Users/hagayuya/Devs/NIDLab/PsychoPyTutorial/rhythm_trial_exp_lastrun.py',
+    originPath='/Users/hagayuya/Devs/NIDLab/PsychoPyRhythmExperiment/rhythm_trial_exp_lastrun.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -129,26 +129,33 @@ text_norm.alignText= 'center'
 # --- Initialize components for Routine "blank" ---
 ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
 
-# --- Initialize components for Routine "blank" ---
-ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
-
-# --- Initialize components for Routine "trial" ---
-cross = visual.ShapeStim(
-    win=win, name='cross', vertices='cross',
+# --- Initialize components for Routine "fixation_cross" ---
+cross_white = visual.ShapeStim(
+    win=win, name='cross_white', vertices='cross',
     size=(0.05, 0.05),
     ori=0.0, pos=(0, 0), anchor='center',
     lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
     opacity=None, depth=0.0, interpolate=True)
+
+# --- Initialize components for Routine "trial" ---
+cross_white_2 = visual.ShapeStim(
+    win=win, name='cross_white_2', vertices='cross',
+    size=(0.05, 0.05),
+    ori=0.0, pos=(0, 0), anchor='center',
+    lineWidth=1.0,     colorSpace='rgb',  lineColor='white', fillColor='white',
+    opacity=None, depth=0.0, interpolate=True)
+cross_colored = visual.ShapeStim(
+    win=win, name='cross_colored', vertices='cross',
+    size=(0.05, 0.05),
+    ori=0.0, pos=(0, 0), anchor='center',
+    lineWidth=1.0,     colorSpace='rgb',  lineColor=[0.0000, 0.0000, 0.0000], fillColor=[-0.0039, 1.0000, 0.6627],
+    opacity=None, depth=-1.0, interpolate=True)
 key_resp = keyboard.Keyboard()
-ISI_2 = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI_2')
 
-# --- Initialize components for Routine "blank" ---
-ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
-
-# --- Initialize components for Routine "break_2" ---
+# --- Initialize components for Routine "break_section" ---
 text_norm_2 = visual.TextStim(win=win, name='text_norm_2',
     text='休憩\n\nSpaceで再開',
-    font='Arial',
+    font='Osaka',
     units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
@@ -166,7 +173,7 @@ ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
 # --- Initialize components for Routine "ending_message" ---
 text_norm_3 = visual.TextStim(win=win, name='text_norm_3',
     text='実験はこれで終了です',
-    font='Arial',
+    font='Osaka',
     units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
@@ -229,17 +236,6 @@ while continueRoutine:
     if text_norm.status == STARTED:
         # update params
         pass
-    
-    # if text_norm is stopping this frame...
-    if text_norm.status == STARTED:
-        # is it time to stop? (based on global clock, using actual start)
-        if tThisFlipGlobal > text_norm.tStartRefresh + 5-frameTolerance:
-            # keep track of stop time/frame for later
-            text_norm.tStop = t  # not accounting for scr refresh
-            text_norm.frameNStop = frameN  # exact frame index
-            # update status
-            text_norm.status = FINISHED
-            text_norm.setAutoDraw(False)
     
     # *key_instruct* updates
     waitOnFlip = False
@@ -370,8 +366,6 @@ while continueRoutine and routineTimer.getTime() < 1.0:
 for thisComponent in blankComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# Run 'End Routine' code from code
-win.flip()
 # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
 if routineForceEnded:
     routineTimer.reset()
@@ -398,7 +392,7 @@ for thisSession in session:
             exec('{} = thisSession[paramName]'.format(paramName))
     
     # set up handler to look after randomisation of conditions etc
-    trials = data.TrialHandler(nReps=2.0, method='random', 
+    trials = data.TrialHandler(nReps=3.0, method='random', 
         extraInfo=expInfo, originPath=-1,
         trialList=[None],
         seed=None, name='trials')
@@ -416,12 +410,12 @@ for thisSession in session:
             for paramName in thisTrial:
                 exec('{} = thisTrial[paramName]'.format(paramName))
         
-        # --- Prepare to start Routine "blank" ---
+        # --- Prepare to start Routine "fixation_cross" ---
         continueRoutine = True
         # update component parameters for each repeat
         # keep track of which components have finished
-        blankComponents = [ISI]
-        for thisComponent in blankComponents:
+        fixation_crossComponents = [cross_white]
+        for thisComponent in fixation_crossComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
             thisComponent.tStartRefresh = None
@@ -433,32 +427,48 @@ for thisSession in session:
         _timeToFirstFrame = win.getFutureFlipTime(clock="now")
         frameN = -1
         
-        # --- Run Routine "blank" ---
+        # --- Run Routine "fixation_cross" ---
         routineForceEnded = not continueRoutine
-        while continueRoutine and routineTimer.getTime() < 1.0:
+        while continueRoutine and routineTimer.getTime() < 0.5:
             # get current time
             t = routineTimer.getTime()
             tThisFlip = win.getFutureFlipTime(clock=routineTimer)
             tThisFlipGlobal = win.getFutureFlipTime(clock=None)
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
-            # *ISI* period
             
-            # if ISI is starting this frame...
-            if ISI.status == NOT_STARTED and t >= 0.0-frameTolerance:
+            # *cross_white* updates
+            
+            # if cross_white is starting this frame...
+            if cross_white.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
                 # keep track of start time/frame for later
-                ISI.frameNStart = frameN  # exact frame index
-                ISI.tStart = t  # local t and not account for scr refresh
-                ISI.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(ISI, 'tStartRefresh')  # time at next scr refresh
+                cross_white.frameNStart = frameN  # exact frame index
+                cross_white.tStart = t  # local t and not account for scr refresh
+                cross_white.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(cross_white, 'tStartRefresh')  # time at next scr refresh
                 # add timestamp to datafile
-                thisExp.addData('ISI.started', t)
+                thisExp.timestampOnFlip(win, 'cross_white.started')
                 # update status
-                ISI.status = STARTED
-                ISI.start(1)
-            elif ISI.status == STARTED:  # one frame should pass before updating params and completing
-                ISI.complete()  # finish the static period
-                ISI.tStop = ISI.tStart + 1  # record stop time
+                cross_white.status = STARTED
+                cross_white.setAutoDraw(True)
+            
+            # if cross_white is active this frame...
+            if cross_white.status == STARTED:
+                # update params
+                pass
+            
+            # if cross_white is stopping this frame...
+            if cross_white.status == STARTED:
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > cross_white.tStartRefresh + 0.5-frameTolerance:
+                    # keep track of stop time/frame for later
+                    cross_white.tStop = t  # not accounting for scr refresh
+                    cross_white.frameNStop = frameN  # exact frame index
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'cross_white.stopped')
+                    # update status
+                    cross_white.status = FINISHED
+                    cross_white.setAutoDraw(False)
             
             # check for quit (typically the Esc key)
             if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -471,7 +481,7 @@ for thisSession in session:
                 routineForceEnded = True
                 break
             continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in blankComponents:
+            for thisComponent in fixation_crossComponents:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
@@ -480,17 +490,15 @@ for thisSession in session:
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
         
-        # --- Ending Routine "blank" ---
-        for thisComponent in blankComponents:
+        # --- Ending Routine "fixation_cross" ---
+        for thisComponent in fixation_crossComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        # Run 'End Routine' code from code
-        win.flip()
         # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
         if routineForceEnded:
             routineTimer.reset()
         else:
-            routineTimer.addTime(-1.000000)
+            routineTimer.addTime(-0.500000)
         
         # --- Prepare to start Routine "trial" ---
         continueRoutine = True
@@ -498,15 +506,20 @@ for thisSession in session:
         key_resp.keys = []
         key_resp.rt = []
         _key_resp_allKeys = []
+        # Run 'Begin Routine' code from cross_manage
+        core.wait(1)
+        cross_white.setAutoDraw(True)
+        win.flip()
         # Run 'Begin Routine' code from sound_stim
+        #cross.setAutoDraw(True)
         delay = delay_series[sound_stim_routine_index]
         scale = scale_series[sound_stim_routine_index]
-        run_stim(delay=delay, scale=scale)
+        run_stim(delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV')
         trials.addData('stim.delay', delay)
         trials.addData('stim.scale', scale)
         sound_stim_routine_index += 1
         # keep track of which components have finished
-        trialComponents = [cross, key_resp, ISI_2]
+        trialComponents = [cross_white_2, cross_colored, key_resp]
         for thisComponent in trialComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -529,23 +542,43 @@ for thisSession in session:
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
             
-            # *cross* updates
+            # *cross_white_2* updates
             
-            # if cross is starting this frame...
-            if cross.status == NOT_STARTED and tThisFlip >= 10-frameTolerance:
+            # if cross_white_2 is starting this frame...
+            if cross_white_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
                 # keep track of start time/frame for later
-                cross.frameNStart = frameN  # exact frame index
-                cross.tStart = t  # local t and not account for scr refresh
-                cross.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(cross, 'tStartRefresh')  # time at next scr refresh
+                cross_white_2.frameNStart = frameN  # exact frame index
+                cross_white_2.tStart = t  # local t and not account for scr refresh
+                cross_white_2.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(cross_white_2, 'tStartRefresh')  # time at next scr refresh
                 # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'cross.started')
+                thisExp.timestampOnFlip(win, 'cross_white_2.started')
                 # update status
-                cross.status = STARTED
-                cross.setAutoDraw(True)
+                cross_white_2.status = STARTED
+                cross_white_2.setAutoDraw(True)
             
-            # if cross is active this frame...
-            if cross.status == STARTED:
+            # if cross_white_2 is active this frame...
+            if cross_white_2.status == STARTED:
+                # update params
+                pass
+            
+            # *cross_colored* updates
+            
+            # if cross_colored is starting this frame...
+            if cross_colored.status == NOT_STARTED and tThisFlip >= 11-frameTolerance:
+                # keep track of start time/frame for later
+                cross_colored.frameNStart = frameN  # exact frame index
+                cross_colored.tStart = t  # local t and not account for scr refresh
+                cross_colored.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(cross_colored, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'cross_colored.started')
+                # update status
+                cross_colored.status = STARTED
+                cross_colored.setAutoDraw(True)
+            
+            # if cross_colored is active this frame...
+            if cross_colored.status == STARTED:
                 # update params
                 pass
             
@@ -553,7 +586,7 @@ for thisSession in session:
             waitOnFlip = False
             
             # if key_resp is starting this frame...
-            if key_resp.status == NOT_STARTED and tThisFlip >= 10-frameTolerance:
+            if key_resp.status == NOT_STARTED and tThisFlip >= 11-frameTolerance:
                 # keep track of start time/frame for later
                 key_resp.frameNStart = frameN  # exact frame index
                 key_resp.tStart = t  # local t and not account for scr refresh
@@ -575,23 +608,6 @@ for thisSession in session:
                     key_resp.rt = _key_resp_allKeys[-1].rt
                     # a response ends the routine
                     continueRoutine = False
-            # *ISI_2* period
-            
-            # if ISI_2 is starting this frame...
-            if ISI_2.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                ISI_2.frameNStart = frameN  # exact frame index
-                ISI_2.tStart = t  # local t and not account for scr refresh
-                ISI_2.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(ISI_2, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.addData('ISI_2.started', t)
-                # update status
-                ISI_2.status = STARTED
-                ISI_2.start(0.5)
-            elif ISI_2.status == STARTED:  # one frame should pass before updating params and completing
-                ISI_2.complete()  # finish the static period
-                ISI_2.tStop = ISI_2.tStart + 0.5  # record stop time
             
             # check for quit (typically the Esc key)
             if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -623,87 +639,15 @@ for thisSession in session:
         trials.addData('key_resp.keys',key_resp.keys)
         if key_resp.keys != None:  # we had a response
             trials.addData('key_resp.rt', key_resp.rt)
+        # Run 'End Routine' code from cross_manage
+        core.wait(1)
+        cross_white.setAutoDraw(False)
+        win.flip()
         # the Routine "trial" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        
-        # --- Prepare to start Routine "blank" ---
-        continueRoutine = True
-        # update component parameters for each repeat
-        # keep track of which components have finished
-        blankComponents = [ISI]
-        for thisComponent in blankComponents:
-            thisComponent.tStart = None
-            thisComponent.tStop = None
-            thisComponent.tStartRefresh = None
-            thisComponent.tStopRefresh = None
-            if hasattr(thisComponent, 'status'):
-                thisComponent.status = NOT_STARTED
-        # reset timers
-        t = 0
-        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
-        frameN = -1
-        
-        # --- Run Routine "blank" ---
-        routineForceEnded = not continueRoutine
-        while continueRoutine and routineTimer.getTime() < 1.0:
-            # get current time
-            t = routineTimer.getTime()
-            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-            # update/draw components on each frame
-            # *ISI* period
-            
-            # if ISI is starting this frame...
-            if ISI.status == NOT_STARTED and t >= 0.0-frameTolerance:
-                # keep track of start time/frame for later
-                ISI.frameNStart = frameN  # exact frame index
-                ISI.tStart = t  # local t and not account for scr refresh
-                ISI.tStartRefresh = tThisFlipGlobal  # on global time
-                win.timeOnFlip(ISI, 'tStartRefresh')  # time at next scr refresh
-                # add timestamp to datafile
-                thisExp.addData('ISI.started', t)
-                # update status
-                ISI.status = STARTED
-                ISI.start(1)
-            elif ISI.status == STARTED:  # one frame should pass before updating params and completing
-                ISI.complete()  # finish the static period
-                ISI.tStop = ISI.tStart + 1  # record stop time
-            
-            # check for quit (typically the Esc key)
-            if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
-                core.quit()
-                if eyetracker:
-                    eyetracker.setConnectionState(False)
-            
-            # check if all components have finished
-            if not continueRoutine:  # a component has requested a forced-end of Routine
-                routineForceEnded = True
-                break
-            continueRoutine = False  # will revert to True if at least one component still running
-            for thisComponent in blankComponents:
-                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-                    continueRoutine = True
-                    break  # at least one component has not yet finished
-            
-            # refresh the screen
-            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-                win.flip()
-        
-        # --- Ending Routine "blank" ---
-        for thisComponent in blankComponents:
-            if hasattr(thisComponent, "setAutoDraw"):
-                thisComponent.setAutoDraw(False)
-        # Run 'End Routine' code from code
-        win.flip()
-        # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
-        if routineForceEnded:
-            routineTimer.reset()
-        else:
-            routineTimer.addTime(-1.000000)
         thisExp.nextEntry()
         
-    # completed 2.0 repeats of 'trials'
+    # completed 3.0 repeats of 'trials'
     
     # get names of stimulus parameters
     if trials.trialList in ([], [None], None):
@@ -718,15 +662,15 @@ for thisSession in session:
         stimOut=params,
         dataOut=['n','all_mean','all_std', 'all_raw'])
     
-    # --- Prepare to start Routine "break_2" ---
+    # --- Prepare to start Routine "break_section" ---
     continueRoutine = True
     # update component parameters for each repeat
     key_instruct_2.keys = []
     key_instruct_2.rt = []
     _key_instruct_2_allKeys = []
     # keep track of which components have finished
-    break_2Components = [text_norm_2, key_instruct_2]
-    for thisComponent in break_2Components:
+    break_sectionComponents = [text_norm_2, key_instruct_2]
+    for thisComponent in break_sectionComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
         thisComponent.tStartRefresh = None
@@ -738,7 +682,7 @@ for thisSession in session:
     _timeToFirstFrame = win.getFutureFlipTime(clock="now")
     frameN = -1
     
-    # --- Run Routine "break_2" ---
+    # --- Run Routine "break_section" ---
     routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
@@ -804,7 +748,7 @@ for thisSession in session:
             routineForceEnded = True
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in break_2Components:
+        for thisComponent in break_sectionComponents:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -813,8 +757,8 @@ for thisSession in session:
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # --- Ending Routine "break_2" ---
-    for thisComponent in break_2Components:
+    # --- Ending Routine "break_section" ---
+    for thisComponent in break_sectionComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     # check responses
@@ -823,7 +767,7 @@ for thisSession in session:
     session.addData('key_instruct_2.keys',key_instruct_2.keys)
     if key_instruct_2.keys != None:  # we had a response
         session.addData('key_instruct_2.rt', key_instruct_2.rt)
-    # the Routine "break_2" was not non-slip safe, so reset the non-slip timer
+    # the Routine "break_section" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
     # --- Prepare to start Routine "blank" ---
@@ -894,8 +838,6 @@ for thisSession in session:
     for thisComponent in blankComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    # Run 'End Routine' code from code
-    win.flip()
     # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
     if routineForceEnded:
         routineTimer.reset()

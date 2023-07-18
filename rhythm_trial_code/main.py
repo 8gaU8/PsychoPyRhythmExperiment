@@ -3,14 +3,13 @@ import time
 
 import numpy as np
 
-from config import BASE_MSGS, BASE_TIME, PROBE_TONE, TIGGER_MSGS
-from rhythm_trial_code.message import Message, get_stim_series
-from rhythm_trial_code.utils import init_sound_player, wait_until
+from .message import Message, get_stim_series
+from .msg_config import BASE_MSGS, BASE_TIME, PROBE_TONE, TIGGER_MSGS
+from .utils import init_sound_player, wait_until
 
 
-def run_stim(delay, scale):
+def run_stim(delay: float, scale: float, stim_sound_file: str):
     Message.time_scale = scale
-    stim_sound_file = "./sound/SD0050.WAV"
     init_sound_player(stim_sound_file=stim_sound_file)
 
     stim_series = get_stim_series(

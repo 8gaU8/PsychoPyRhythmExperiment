@@ -1,4 +1,3 @@
-import time
 from copy import deepcopy
 from typing import Callable, List
 
@@ -40,10 +39,12 @@ def get_stim_series(
     probe_delay: float,
     probe_tone: Message,
 ) -> List[Message]:
+    # [base] [base] ... [base] [trigger] [delay time] [probe tone]
     stim_series: List[Message] = []
 
     stim_series.extend(base_msgs)
 
+    # repeat base msgs for base_times
     last_time = base_msgs[-1].time
     for count in range(1, base_times):
         tmp_base_msgs = deepcopy(base_msgs)
@@ -51,14 +52,19 @@ def get_stim_series(
             msg.time += count * last_time
         stim_series.extend(tmp_base_msgs)
 
+    # append trigger msgs
     last_time = stim_series[-1].time
     tmp_triger_msgs = deepcopy(trigger_msgs)
     for msg in tmp_triger_msgs:
         msg.time += last_time
     stim_series.extend(tmp_triger_msgs)
+
+    # add Probe Tone to stim series
     tmp_probe_tone = deepcopy(probe_tone)
     tmp_probe_tone.time += tmp_triger_msgs[-1].time + probe_delay
     stim_series.append(tmp_probe_tone)
+
+    # sort by time
     stim_series = sorted(stim_series, key=lambda msg: msg.time)
 
     return stim_series
