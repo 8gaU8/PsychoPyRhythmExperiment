@@ -5,4 +5,4 @@ err() {
     echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]: $*" >&2
 }
 
-/Applications/PsychoPy.app/Contents/MacOS/python -m pip install -t ./pkgs --upgrade  "${@}"
+/Applications/PsychoPy.app/Contents/MacOS/python -m pip install -t ./pkgs "${@}"

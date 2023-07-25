@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on 火  7/18 15:56:57 2023
+    on 火  7/25 16:02:42 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -37,12 +37,6 @@ import sys
 sys.path.append("./pkgs")
 
 from rhythm_trial_code.main import run_stim
-sound_stim_routine_index = 0
-import numpy as np
-np.random.seed(1)
-delay_series = np.random.normal(loc=0, scale=0.3, size=300).clip(-0.2, 0.2)
-scale_series = 1 + np.random.normal(loc=0, scale=0.3, size=300)
-
 
 
 # Ensure that relative paths start from the same directory as this script
@@ -83,7 +77,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1920, 1080], fullscr=True, screen=0, 
+    size=[1440, 900], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
     backgroundImage='', backgroundFit='none',
@@ -129,6 +123,20 @@ text_norm.alignText= 'center'
 # --- Initialize components for Routine "blank" ---
 ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
 
+# --- Initialize components for Routine "trial_inst" ---
+text_norm_4 = visual.TextStim(win=win, name='text_norm_4',
+    text='',
+    font='Osaka',
+    units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
+# Run 'Begin Experiment' code from text_align_4
+# Code components should usually appear at the top
+# of the routine. This one has to appear after the
+# text component it refers to.
+text_norm.alignText= 'left'
+
 # --- Initialize components for Routine "fixation_cross" ---
 cross_white = visual.ShapeStim(
     win=win, name='cross_white', vertices='cross',
@@ -148,9 +156,10 @@ cross_colored = visual.ShapeStim(
     win=win, name='cross_colored', vertices='cross',
     size=(0.05, 0.05),
     ori=0.0, pos=(0, 0), anchor='center',
-    lineWidth=1.0,     colorSpace='rgb',  lineColor=[0.0000, 0.0000, 0.0000], fillColor=[-0.0039, 1.0000, 0.6627],
+    lineWidth=1.0,     colorSpace='rgb',  lineColor=[-0.0039, 1.0000, 0.6627], fillColor=[-0.0039, 1.0000, 0.6627],
     opacity=None, depth=-1.0, interpolate=True)
 key_resp = keyboard.Keyboard()
+key_resp_moving = keyboard.Keyboard()
 
 # --- Initialize components for Routine "break_section" ---
 text_norm_2 = visual.TextStim(win=win, name='text_norm_2',
@@ -373,9 +382,9 @@ else:
     routineTimer.addTime(-1.000000)
 
 # set up handler to look after randomisation of conditions etc
-session = data.TrialHandler(nReps=2.0, method='random', 
+session = data.TrialHandler(nReps=None, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=[None],
+    trialList=data.importConditions('exp_params/session.csv'),
     seed=None, name='session')
 thisExp.addLoop(session)  # add the loop to the experiment
 thisSession = session.trialList[0]  # so we can initialise stimuli with some values
@@ -392,10 +401,10 @@ for thisSession in session:
             exec('{} = thisSession[paramName]'.format(paramName))
     
     # set up handler to look after randomisation of conditions etc
-    trials = data.TrialHandler(nReps=3.0, method='random', 
+    trials = data.TrialHandler(nReps=None, method='random', 
         extraInfo=expInfo, originPath=-1,
-        trialList=[None],
-        seed=None, name='trials')
+        trialList=data.importConditions(trials_file_name),
+        seed=0, name='trials')
     thisExp.addLoop(trials)  # add the loop to the experiment
     thisTrial = trials.trialList[0]  # so we can initialise stimuli with some values
     # abbreviate parameter names if possible (e.g. rgb = thisTrial.rgb)
@@ -409,6 +418,93 @@ for thisSession in session:
         if thisTrial != None:
             for paramName in thisTrial:
                 exec('{} = thisTrial[paramName]'.format(paramName))
+        
+        # --- Prepare to start Routine "trial_inst" ---
+        continueRoutine = True
+        # update component parameters for each repeat
+        text_norm_4.setText(msg)
+        # keep track of which components have finished
+        trial_instComponents = [text_norm_4]
+        for thisComponent in trial_instComponents:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "trial_inst" ---
+        routineForceEnded = not continueRoutine
+        while continueRoutine and routineTimer.getTime() < 3.0:
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *text_norm_4* updates
+            
+            # if text_norm_4 is starting this frame...
+            if text_norm_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                text_norm_4.frameNStart = frameN  # exact frame index
+                text_norm_4.tStart = t  # local t and not account for scr refresh
+                text_norm_4.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(text_norm_4, 'tStartRefresh')  # time at next scr refresh
+                # update status
+                text_norm_4.status = STARTED
+                text_norm_4.setAutoDraw(True)
+            
+            # if text_norm_4 is active this frame...
+            if text_norm_4.status == STARTED:
+                # update params
+                pass
+            
+            # if text_norm_4 is stopping this frame...
+            if text_norm_4.status == STARTED:
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > text_norm_4.tStartRefresh + 3-frameTolerance:
+                    # keep track of stop time/frame for later
+                    text_norm_4.tStop = t  # not accounting for scr refresh
+                    text_norm_4.frameNStop = frameN  # exact frame index
+                    # update status
+                    text_norm_4.status = FINISHED
+                    text_norm_4.setAutoDraw(False)
+            
+            # check for quit (typically the Esc key)
+            if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+                core.quit()
+                if eyetracker:
+                    eyetracker.setConnectionState(False)
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in trial_instComponents:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "trial_inst" ---
+        for thisComponent in trial_instComponents:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
+        if routineForceEnded:
+            routineTimer.reset()
+        else:
+            routineTimer.addTime(-3.000000)
         
         # --- Prepare to start Routine "fixation_cross" ---
         continueRoutine = True
@@ -506,20 +602,21 @@ for thisSession in session:
         key_resp.keys = []
         key_resp.rt = []
         _key_resp_allKeys = []
+        key_resp_moving.keys = []
+        key_resp_moving.rt = []
+        _key_resp_moving_allKeys = []
         # Run 'Begin Routine' code from cross_manage
-        core.wait(1)
         cross_white.setAutoDraw(True)
         win.flip()
         # Run 'Begin Routine' code from sound_stim
-        #cross.setAutoDraw(True)
-        delay = delay_series[sound_stim_routine_index]
-        scale = scale_series[sound_stim_routine_index]
-        run_stim(delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV')
+        run_stim(delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!="REST")
         trials.addData('stim.delay', delay)
         trials.addData('stim.scale', scale)
-        sound_stim_routine_index += 1
+        trials.addData('stim.ans', ans)
+        trials.addData('stim.msg', msg)
+        
         # keep track of which components have finished
-        trialComponents = [cross_white_2, cross_colored, key_resp]
+        trialComponents = [cross_white_2, cross_colored, key_resp, key_resp_moving]
         for thisComponent in trialComponents:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -606,8 +703,37 @@ for thisSession in session:
                 if len(_key_resp_allKeys):
                     key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
                     key_resp.rt = _key_resp_allKeys[-1].rt
+                    # was this correct?
+                    if (key_resp.keys == str(ans)) or (key_resp.keys == ans):
+                        key_resp.corr = 1
+                    else:
+                        key_resp.corr = 0
                     # a response ends the routine
                     continueRoutine = False
+            
+            # *key_resp_moving* updates
+            waitOnFlip = False
+            
+            # if key_resp_moving is starting this frame...
+            if key_resp_moving.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                # keep track of start time/frame for later
+                key_resp_moving.frameNStart = frameN  # exact frame index
+                key_resp_moving.tStart = t  # local t and not account for scr refresh
+                key_resp_moving.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(key_resp_moving, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'key_resp_moving.started')
+                # update status
+                key_resp_moving.status = STARTED
+                # keyboard checking is just starting
+                waitOnFlip = True
+                win.callOnFlip(key_resp_moving.clock.reset)  # t=0 on next screen flip
+            if key_resp_moving.status == STARTED and not waitOnFlip:
+                theseKeys = key_resp_moving.getKeys(keyList=['v'], waitRelease=False)
+                _key_resp_moving_allKeys.extend(theseKeys)
+                if len(_key_resp_moving_allKeys):
+                    key_resp_moving.keys = [key.name for key in _key_resp_moving_allKeys]  # storing all keys
+                    key_resp_moving.rt = [key.rt for key in _key_resp_moving_allKeys]
             
             # check for quit (typically the Esc key)
             if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -636,9 +762,22 @@ for thisSession in session:
         # check responses
         if key_resp.keys in ['', [], None]:  # No response was made
             key_resp.keys = None
+            # was no response the correct answer?!
+            if str(ans).lower() == 'none':
+               key_resp.corr = 1;  # correct non-response
+            else:
+               key_resp.corr = 0;  # failed to respond (incorrectly)
+        # store data for trials (TrialHandler)
         trials.addData('key_resp.keys',key_resp.keys)
+        trials.addData('key_resp.corr', key_resp.corr)
         if key_resp.keys != None:  # we had a response
             trials.addData('key_resp.rt', key_resp.rt)
+        # check responses
+        if key_resp_moving.keys in ['', [], None]:  # No response was made
+            key_resp_moving.keys = None
+        trials.addData('key_resp_moving.keys',key_resp_moving.keys)
+        if key_resp_moving.keys != None:  # we had a response
+            trials.addData('key_resp_moving.rt', key_resp_moving.rt)
         # Run 'End Routine' code from cross_manage
         core.wait(1)
         cross_white.setAutoDraw(False)
@@ -647,7 +786,7 @@ for thisSession in session:
         routineTimer.reset()
         thisExp.nextEntry()
         
-    # completed 3.0 repeats of 'trials'
+    # completed None repeats of 'trials'
     
     # get names of stimulus parameters
     if trials.trialList in ([], [None], None):
@@ -845,7 +984,7 @@ for thisSession in session:
         routineTimer.addTime(-1.000000)
     thisExp.nextEntry()
     
-# completed 2.0 repeats of 'session'
+# completed None repeats of 'session'
 
 # get names of stimulus parameters
 if session.trialList in ([], [None], None):
