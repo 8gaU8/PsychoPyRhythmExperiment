@@ -1,4 +1,6 @@
-click==8.1.5
+click==8.1.6
+future==0.18.3
+iso8601==2.0.0
 markdown-it-py==3.0.0
 mdurl==0.1.2
 mypy-extensions==1.0.0
@@ -8,5 +10,6 @@ platformdirs==3.9.1
 pygame==2.5.0
 Pygments==2.15.1
 pyserial==3.5
+PyYAML==6.0.1
 tomli==2.0.1
 typing_extensions==4.7.1
