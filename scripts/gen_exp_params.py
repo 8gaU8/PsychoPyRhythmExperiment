@@ -3,8 +3,10 @@ from pathlib import Path
 
 import numpy as np
 
-NB_EXP = 3
-NB_TRIALS = 200
+NB_EXP = 1
+NB_TRIALS = 3
+
+INITIAL_SEED = 2
 
 MOVE_MSGS = "動いてください"
 STOP_MSGS = "動かないでください"
@@ -12,7 +14,15 @@ REST_MSGS = "REST"
 
 
 def main():
-    seed = 0
+    content = "trials_file_name\n"
+    for exp in range(NB_EXP):
+        line = f"exp_params/{exp}.csv\n"
+        content += line
+
+    with open("./exp_params/session.csv", "w") as f:
+        f.write(content)
+
+    seed = INITIAL_SEED
 
     param_dir = Path("exp_params")
     param_dir.mkdir(exist_ok=True)
