@@ -25,7 +25,7 @@
     <Param val="True" valType="bool" updates="None" name="Show info dlg"/>
     <Param val="False" valType="bool" updates="None" name="Show mouse"/>
     <Param val="height" valType="str" updates="None" name="Units"/>
-    <Param val="" valType="str" updates="None" name="Use version"/>
+    <Param val="2022.2.5" valType="str" updates="None" name="Use version"/>
     <Param val="[1440, 900]" valType="list" updates="None" name="Window size (pixels)"/>
     <Param val="none" valType="str" updates="None" name="backgroundFit"/>
     <Param val="" valType="str" updates="None" name="backgroundImg"/>
@@ -474,7 +474,7 @@
     </Routine>
     <Routine name="manage_serial">
       <CodeComponent name="code" plugin="None">
-        <Param val="import time&amp;#10;import threading&amp;#10;&amp;#10;from rhythm_trial_code.dummy_serial import Serial&amp;#10;&amp;#10;connected = True&amp;#10;PULSE_WIDTH = 0.01&amp;#10;&amp;#10;&amp;#10;def read_thread(port: Serial):&amp;#10;    while connected:&amp;#10;        if port.in_waiting &gt; 0:&amp;#10;            print(&quot;0x%X&quot; % ord(port.read(1)))&amp;#10;&amp;#10;&amp;#10;# Open the Windows device manager, search for the &quot;TriggerBox VirtualSerial Port (COM6)&quot;&amp;#10;# in &quot;Ports /COM &amp; LPT)&quot; and enter the COM port number in the constructor.&amp;#10;port = Serial(&quot;COM6&quot;)&amp;#10;# Start the read thread&amp;#10;thread = threading.Thread(target=read_thread, args=(port,))&amp;#10;thread.start()&amp;#10;# reset Port&amp;#10;port.write([0x00])" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="import time&amp;#10;import threading&amp;#10;#from serial import Serial&amp;#10;from rhythm_trial_code.dummy_serial import Serial&amp;#10;&amp;#10;connected = True&amp;#10;PULSE_WIDTH = 0.01&amp;#10;&amp;#10;&amp;#10;def read_thread(port: Serial):&amp;#10;    while connected:&amp;#10;        if port.in_waiting &gt; 0:&amp;#10;            print(&quot;0x%X&quot; % ord(port.read(1)))&amp;#10;&amp;#10;&amp;#10;# Open the Windows device manager, search for the &quot;TriggerBox VirtualSerial Port (COM6)&quot;&amp;#10;# in &quot;Ports /COM &amp; LPT)&quot; and enter the COM port number in the constructor.&amp;#10;port = Serial(&quot;COM6&quot;)&amp;#10;# Start the read thread&amp;#10;thread = threading.Thread(target=read_thread, args=(port,))&amp;#10;thread.start()&amp;#10;# reset Port&amp;#10;port.write([0x00])" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
