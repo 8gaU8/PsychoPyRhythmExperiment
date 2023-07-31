@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Jul 31 11:05:34 2023
+    on Mon Jul 31 11:19:21 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -47,7 +47,7 @@ PULSE_WIDTH = 0.01
 def read_thread(port: Serial):
     while connected:
         if port.in_waiting > 0:
-            print("0x%X" % ord(port.read(1)))
+            print("0x%X" % (port.read(1)))
 
 
 # Open the Windows device manager, search for the "TriggerBox VirtualSerial Port (COM6)"
