@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2023.1.2),
-    on 日  7/30 14:13:51 2023
+    on Mon Jul 31 10:00:30 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -35,7 +35,7 @@ from psychopy.hardware import keyboard
 # Run 'Before Experiment' code from code
 import time
 import threading
-
+#from serial import Serial
 from rhythm_trial_code.dummy_serial import Serial
 
 connected = True
@@ -87,7 +87,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='/Users/hagayuya/Devs/NIDLab/PsychoPyRhythmExperiment/rhythm_trial_exp_lastrun.py',
+    originPath='/Users/hagayuya/Devs/NIDLab/PsychoPyRhythmExperiment/rhythm_trial_exp.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info

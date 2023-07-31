@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 
-NB_EXP = 1
+NB_EXP = 5
 NB_TRIALS = 3
 
 INITIAL_SEED = 2
