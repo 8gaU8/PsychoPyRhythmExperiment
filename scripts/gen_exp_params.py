@@ -8,8 +8,8 @@ NB_TRIALS = 3
 
 INITIAL_SEED = 2
 
-MOVE_MSGS = "動いてください"
-STOP_MSGS = "動かないでください"
+MOVE_MSGS = "MOVE"
+STOP_MSGS = "DON'T MOVE"
 REST_MSGS = "REST"
 
 
@@ -40,7 +40,7 @@ def main():
         ans_ary[(ans_ary == "1")] = "n"
 
         np.random.seed(seed * 10)
-        scale_ary = np.random.normal(loc=0, scale=0.1, size=NB_TRIALS)
+        scale_ary = np.random.normal(loc=1, scale=0.1, size=NB_TRIALS)
 
         random.seed(seed * 20)
         msgs_ary = (
