@@ -1,6 +1,6 @@
 from serial import Serial
-from rhythm_trial_code.dummy_serial import Serial
 
+from rhythm_trial_code.dummy_serial import Serial
 from rhythm_trial_code.main import run_stim
 
 
