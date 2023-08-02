@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Jul 31 11:19:21 2023
+    on Wed Aug  2 14:30:15 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -37,25 +37,16 @@ from psychopy.hardware import keyboard
 # Run 'Before Experiment' code from code
 import time
 import threading
-#from serial import Serial
-from rhythm_trial_code.dummy_serial import Serial
-
-connected = True
-PULSE_WIDTH = 0.01
+from serial import Serial
+#from rhythm_trial_code.dummy_serial import Serial
 
 
-def read_thread(port: Serial):
-    while connected:
-        if port.in_waiting > 0:
-            print("0x%X" % (port.read(1)))
 
 
 # Open the Windows device manager, search for the "TriggerBox VirtualSerial Port (COM6)"
 # in "Ports /COM & LPT)" and enter the COM port number in the constructor.
-port = Serial("COM6")
-# Start the read thread
-thread = threading.Thread(target=read_thread, args=(port,))
-thread.start()
+port = Serial("COM3")
+
 # reset Port
 port.write([0x00])
 # Run 'Before Experiment' code from sound_stim
@@ -635,7 +626,7 @@ for thisSession in session:
         win.flip()
         # Run 'Begin Routine' code from sound_stim
         sound_stim_started_time = core.getTime()
-        run_stim(delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!="REST")
+        run_stim(port=port,delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!="REST")
         sound_stim_end_time = core.getTime()
         trials.addData('stim.start_time', sound_stim_started_time)
         trials.addData('stim.end_time', sound_stim_end_time)
@@ -1059,9 +1050,8 @@ for thisComponent in ending_messageComponents:
 # the Routine "ending_message" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 # Run 'End Experiment' code from code
-connected = False
-thread.join(1.0)
 # Close the serial port
+port.write([0])
 port.close()
 
 # --- End experiment ---

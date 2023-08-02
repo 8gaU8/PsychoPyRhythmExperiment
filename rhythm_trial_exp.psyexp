@@ -183,7 +183,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="delay = delay_series[sound_stim_routine_index]&amp;#10;scale = scale_series[sound_stim_routine_index]&amp;#10;run_stim(delay=delay, scale=scale)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;sound_stim_routine_index += 1" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="sound_stim_started_time = core.getTime()&amp;#10;run_stim(delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!=&quot;REST&quot;)&amp;#10;sound_stim_end_time = core.getTime()&amp;#10;trials.addData('stim.start_time', sound_stim_started_time)&amp;#10;trials.addData('stim.end_time', sound_stim_end_time)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;trials.addData('stim.ans', ans)&amp;#10;trials.addData('stim.msg', msg)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="sound_stim_started_time = core.getTime()&amp;#10;run_stim(port=port,delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!=&quot;REST&quot;)&amp;#10;sound_stim_end_time = core.getTime()&amp;#10;trials.addData('stim.start_time', sound_stim_started_time)&amp;#10;trials.addData('stim.end_time', sound_stim_end_time)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;trials.addData('stim.ans', ans)&amp;#10;trials.addData('stim.msg', msg)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -474,7 +474,7 @@
     </Routine>
     <Routine name="manage_serial">
       <CodeComponent name="code" plugin="None">
-        <Param val="import time&amp;#10;import threading&amp;#10;#from serial import Serial&amp;#10;from rhythm_trial_code.dummy_serial import Serial&amp;#10;&amp;#10;connected = True&amp;#10;PULSE_WIDTH = 0.01&amp;#10;&amp;#10;&amp;#10;def read_thread(port: Serial):&amp;#10;    while connected:&amp;#10;        if port.in_waiting &gt; 0:&amp;#10;            print(port.read(1))&amp;#10;&amp;#10;&amp;#10;# Open the Windows device manager, search for the &quot;TriggerBox VirtualSerial Port (COM6)&quot;&amp;#10;# in &quot;Ports /COM &amp; LPT)&quot; and enter the COM port number in the constructor.&amp;#10;port = Serial(&quot;COM6&quot;)&amp;#10;# Start the read thread&amp;#10;thread = threading.Thread(target=read_thread, args=(port,))&amp;#10;thread.start()&amp;#10;# reset Port&amp;#10;port.write([0x00])" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="import time&amp;#10;import threading&amp;#10;from serial import Serial&amp;#10;#from rhythm_trial_code.dummy_serial import Serial&amp;#10;&amp;#10;&amp;#10;&amp;#10;&amp;#10;# Open the Windows device manager, search for the &quot;TriggerBox VirtualSerial Port (COM6)&quot;&amp;#10;# in &quot;Ports /COM &amp; LPT)&quot; and enter the COM port number in the constructor.&amp;#10;port = Serial(&quot;COM3&quot;)&amp;#10;&amp;#10;# reset Port&amp;#10;port.write([0x00])" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
@@ -483,7 +483,7 @@
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="connected = False&amp;#10;thread.join(1.0)&amp;#10;# Close the serial port&amp;#10;port.close()" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="# Close the serial port&amp;#10;port.write([0])&amp;#10;port.close()" valType="extendedCode" updates="constant" name="End Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
