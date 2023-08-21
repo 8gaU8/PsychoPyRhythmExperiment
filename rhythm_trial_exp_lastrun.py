@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Wed Aug  2 14:30:15 2023
+    on Mon Aug 21 12:27:32 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -35,20 +35,24 @@ import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
 # Run 'Before Experiment' code from code
+import sys
 import time
 import threading
+
+from rhythm_trial_code.message import play_trigger_factory
 from serial import Serial
-#from rhythm_trial_code.dummy_serial import Serial
 
+if len(sys.argv) > 1 and sys.argv[-1] == "DEBUG":
+    from rhythm_trial_code.dummy_serial import DummySerial
+    Serial = DummySerial
 
-
-
-# Open the Windows device manager, search for the "TriggerBox VirtualSerial Port (COM6)"
-# in "Ports /COM & LPT)" and enter the COM port number in the constructor.
 port = Serial("COM3")
+play_trigger_meta = play_trigger_factory(port, [4])
 
 # reset Port
 port.write([0x00])
+
+
 # Run 'Before Experiment' code from sound_stim
 import sys
 sys.path.append("./pkgs")
@@ -123,7 +127,7 @@ defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "instruction" ---
 text_norm = visual.TextStim(win=win, name='text_norm',
-    text='リズム実験（テスト）\n\nクロスが表示されたあとにキーボードで回答\nProbe Toneが早ければb\n遅ければn\n\nSpaceで開始\n',
+    text="リズム実験（テスト）\n\n最初にMOVE, DON'T MOVE, RESTのうちいずれかが表示されます。\nMOVEのときは音に合わせ一定のテンポでスペースキーを押す\nDON'T MOVEのときは体を動かさない\nRESTのときは音はなりません。体を動かさない\n\n[1/2]\nスペースキーを押して次へ",
     font='Osaka',
     units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -134,7 +138,22 @@ key_instruct = keyboard.Keyboard()
 # Code components should usually appear at the top
 # of the routine. This one has to appear after the
 # text component it refers to.
-text_norm.alignText= 'center'
+text_norm.alignText= 'left'
+
+# --- Initialize components for Routine "instruction2" ---
+text_norm_5 = visual.TextStim(win=win, name='text_norm_5',
+    text='リズム実験（テスト）\n\n十字マークの色が変わったあとに、\n最後になった音について\n早まってると感じたら "B"\n遅れてると感じたら "N"\nを入力\n\n[2/2]\nスペースキーを押して開始',
+    font='Osaka',
+    units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
+key_instruct_4 = keyboard.Keyboard()
+# Run 'Begin Experiment' code from text_align_5
+# Code components should usually appear at the top
+# of the routine. This one has to appear after the
+# text component it refers to.
+text_norm_5.alignText= 'left'
 
 # --- Initialize components for Routine "manage_serial" ---
 
@@ -181,7 +200,7 @@ key_resp_moving = keyboard.Keyboard()
 
 # --- Initialize components for Routine "break_section" ---
 text_norm_2 = visual.TextStim(win=win, name='text_norm_2',
-    text='休憩\n\nSpaceで再開',
+    text='休憩\n\n\nスペースキーを押して再開\n',
     font='Osaka',
     units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -199,7 +218,7 @@ ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
 
 # --- Initialize components for Routine "ending_message" ---
 text_norm_3 = visual.TextStim(win=win, name='text_norm_3',
-    text='実験はこれで終了です',
+    text='実験はこれで終了です。\n\nお疲れ様でした！',
     font='Osaka',
     units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
@@ -300,6 +319,101 @@ for thisComponent in instructionComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
 # the Routine "instruction" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+
+# --- Prepare to start Routine "instruction2" ---
+continueRoutine = True
+routineForceEnded = False
+# update component parameters for each repeat
+key_instruct_4.keys = []
+key_instruct_4.rt = []
+_key_instruct_4_allKeys = []
+# keep track of which components have finished
+instruction2Components = [text_norm_5, key_instruct_4]
+for thisComponent in instruction2Components:
+    thisComponent.tStart = None
+    thisComponent.tStop = None
+    thisComponent.tStartRefresh = None
+    thisComponent.tStopRefresh = None
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+# reset timers
+t = 0
+_timeToFirstFrame = win.getFutureFlipTime(clock="now")
+frameN = -1
+
+# --- Run Routine "instruction2" ---
+while continueRoutine:
+    # get current time
+    t = routineTimer.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # *text_norm_5* updates
+    if text_norm_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        text_norm_5.frameNStart = frameN  # exact frame index
+        text_norm_5.tStart = t  # local t and not account for scr refresh
+        text_norm_5.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(text_norm_5, 'tStartRefresh')  # time at next scr refresh
+        text_norm_5.setAutoDraw(True)
+    
+    # *key_instruct_4* updates
+    waitOnFlip = False
+    if key_instruct_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        key_instruct_4.frameNStart = frameN  # exact frame index
+        key_instruct_4.tStart = t  # local t and not account for scr refresh
+        key_instruct_4.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(key_instruct_4, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'key_instruct_4.started')
+        key_instruct_4.status = STARTED
+        # keyboard checking is just starting
+        waitOnFlip = True
+        win.callOnFlip(key_instruct_4.clock.reset)  # t=0 on next screen flip
+        win.callOnFlip(key_instruct_4.clearEvents, eventType='keyboard')  # clear events on next screen flip
+    if key_instruct_4.status == STARTED and not waitOnFlip:
+        theseKeys = key_instruct_4.getKeys(keyList=['space'], waitRelease=False)
+        _key_instruct_4_allKeys.extend(theseKeys)
+        if len(_key_instruct_4_allKeys):
+            key_instruct_4.keys = _key_instruct_4_allKeys[0].name  # just the first key pressed
+            key_instruct_4.rt = _key_instruct_4_allKeys[0].rt
+            # a response ends the routine
+            continueRoutine = False
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        routineForceEnded = True
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in instruction2Components:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# --- Ending Routine "instruction2" ---
+for thisComponent in instruction2Components:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+# check responses
+if key_instruct_4.keys in ['', [], None]:  # No response was made
+    key_instruct_4.keys = None
+thisExp.addData('key_instruct_4.keys',key_instruct_4.keys)
+if key_instruct_4.keys != None:  # we had a response
+    thisExp.addData('key_instruct_4.rt', key_instruct_4.rt)
+thisExp.nextEntry()
+# the Routine "instruction2" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- Prepare to start Routine "manage_serial" ---
@@ -465,6 +579,8 @@ for thisSession in session:
         routineForceEnded = False
         # update component parameters for each repeat
         text_norm_4.setText(msg)
+        # Run 'Begin Routine' code from code_2
+        play_trigger_meta()
         # keep track of which components have finished
         trial_instComponents = [text_norm_4]
         for thisComponent in trial_instComponents:
@@ -540,6 +656,8 @@ for thisSession in session:
         continueRoutine = True
         routineForceEnded = False
         # update component parameters for each repeat
+        # Run 'Begin Routine' code from code_3
+        play_trigger_meta()
         # keep track of which components have finished
         fixation_crossComponents = [cross_white]
         for thisComponent in fixation_crossComponents:
@@ -626,6 +744,7 @@ for thisSession in session:
         win.flip()
         # Run 'Begin Routine' code from sound_stim
         sound_stim_started_time = core.getTime()
+        play_trigger_meta()
         run_stim(port=port,delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!="REST")
         sound_stim_end_time = core.getTime()
         trials.addData('stim.start_time', sound_stim_started_time)

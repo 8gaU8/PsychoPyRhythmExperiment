@@ -183,7 +183,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="delay = delay_series[sound_stim_routine_index]&amp;#10;scale = scale_series[sound_stim_routine_index]&amp;#10;run_stim(delay=delay, scale=scale)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;sound_stim_routine_index += 1" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="sound_stim_started_time = core.getTime()&amp;#10;run_stim(port=port,delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!=&quot;REST&quot;)&amp;#10;sound_stim_end_time = core.getTime()&amp;#10;trials.addData('stim.start_time', sound_stim_started_time)&amp;#10;trials.addData('stim.end_time', sound_stim_end_time)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;trials.addData('stim.ans', ans)&amp;#10;trials.addData('stim.msg', msg)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="sound_stim_started_time = core.getTime()&amp;#10;play_trigger_meta()&amp;#10;run_stim(port=port,delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!=&quot;REST&quot;)&amp;#10;sound_stim_end_time = core.getTime()&amp;#10;trials.addData('stim.start_time', sound_stim_started_time)&amp;#10;trials.addData('stim.end_time', sound_stim_end_time)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;trials.addData('stim.ans', ans)&amp;#10;trials.addData('stim.msg', msg)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -232,7 +232,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="リズム実験（テスト）&amp;#10;&amp;#10;クロスが表示されたあとにキーボードで回答&amp;#10;Probe Toneが早ければb&amp;#10;遅ければn&amp;#10;&amp;#10;Spaceで開始&amp;#10;" valType="str" updates="constant" name="text"/>
+        <Param val="リズム実験（テスト）&amp;#10;&amp;#10;最初にMOVE, DON'T MOVE, RESTのうちいずれかが表示されます。&amp;#10;MOVEのときは音に合わせ一定のテンポでスペースキーを押す&amp;#10;DON'T MOVEのときは体を動かさない&amp;#10;RESTのときは音はなりません。体を動かさない&amp;#10;&amp;#10;[1/2]&amp;#10;スペースキーを押して次へ" valType="str" updates="constant" name="text"/>
         <Param val="norm" valType="str" updates="None" name="units"/>
         <Param val="1.8" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
@@ -258,11 +258,11 @@
       <CodeComponent name="text_align" plugin="None">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="# Code components should usually appear at the top&amp;#10;# of the routine. This one has to appear after the&amp;#10;# text component it refers to.&amp;#10;text_norm.alignText= 'center'" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="// Code component set to Both&amp;#10;text_norm.setAlignHoriz('left')" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="# Code components should usually appear at the top&amp;#10;# of the routine. This one has to appear after the&amp;#10;# text component it refers to.&amp;#10;text_norm.alignText= 'left'" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="// Code component set to Both&amp;#10;text_norm.setAlignHoriz('center')" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Both" valType="str" updates="None" name="Code Type"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
@@ -295,7 +295,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="実験はこれで終了です" valType="str" updates="constant" name="text"/>
+        <Param val="実験はこれで終了です。&amp;#10;&amp;#10;お疲れ様でした！" valType="str" updates="constant" name="text"/>
         <Param val="norm" valType="str" updates="None" name="units"/>
         <Param val="1.8" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
@@ -358,7 +358,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="休憩&amp;#10;&amp;#10;Spaceで再開" valType="str" updates="constant" name="text"/>
+        <Param val="休憩&amp;#10;&amp;#10;&amp;#10;スペースキーを押して再開&amp;#10;" valType="str" updates="constant" name="text"/>
         <Param val="norm" valType="str" updates="None" name="units"/>
         <Param val="1.8" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
@@ -427,6 +427,23 @@
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="list" updates="constant" name="vertices"/>
       </PolygonComponent>
+      <CodeComponent name="code_3" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="play_trigger_meta()" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="play_trigger_meta()" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="code_3" valType="code" updates="None" name="name"/>
+      </CodeComponent>
     </Routine>
     <Routine name="trial_inst">
       <TextComponent name="text_norm_4" plugin="None">
@@ -471,10 +488,27 @@
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="text_align_4" valType="code" updates="None" name="name"/>
       </CodeComponent>
+      <CodeComponent name="code_2" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="play_trigger_meta" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="play_trigger_meta()" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="code_2" valType="code" updates="None" name="name"/>
+      </CodeComponent>
     </Routine>
     <Routine name="manage_serial">
       <CodeComponent name="code" plugin="None">
-        <Param val="import time&amp;#10;import threading&amp;#10;from serial import Serial&amp;#10;#from rhythm_trial_code.dummy_serial import Serial&amp;#10;&amp;#10;&amp;#10;&amp;#10;&amp;#10;# Open the Windows device manager, search for the &quot;TriggerBox VirtualSerial Port (COM6)&quot;&amp;#10;# in &quot;Ports /COM &amp; LPT)&quot; and enter the COM port number in the constructor.&amp;#10;port = Serial(&quot;COM3&quot;)&amp;#10;&amp;#10;# reset Port&amp;#10;port.write([0x00])" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="import sys&amp;#10;import time&amp;#10;import threading&amp;#10;&amp;#10;from rhythm_trial_code.message import play_trigger_factory&amp;#10;from serial import Serial&amp;#10;&amp;#10;if len(sys.argv) &gt; 1 and sys.argv[-1] == &quot;DEBUG&quot;:&amp;#10;    from rhythm_trial_code.dummy_serial import DummySerial&amp;#10;    Serial = DummySerial&amp;#10;&amp;#10;port = Serial(&quot;COM3&quot;)&amp;#10;play_trigger_meta = play_trigger_factory(port, [4])&amp;#10;&amp;#10;# reset Port&amp;#10;port.write([0x00])&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
@@ -491,9 +525,73 @@
         <Param val="code" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
+    <Routine name="instruction2">
+      <TextComponent name="text_norm_5" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Osaka" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.1" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="text_norm_5" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="False" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="リズム実験（テスト）&amp;#10;&amp;#10;十字マークの色が変わったあとに、&amp;#10;最後になった音について&amp;#10;早まってると感じたら &quot;B&quot;&amp;#10;遅れてると感じたら &quot;N&quot;&amp;#10;を入力&amp;#10;&amp;#10;[2/2]&amp;#10;スペースキーを押して開始" valType="str" updates="constant" name="text"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
+        <Param val="1.8" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="key_instruct_4" plugin="None">
+        <Param val="'space'" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="key_instruct_4" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="first key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <CodeComponent name="text_align_5" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="# Code components should usually appear at the top&amp;#10;# of the routine. This one has to appear after the&amp;#10;# text component it refers to.&amp;#10;text_norm_5.alignText= 'left'" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="// Code component set to Both&amp;#10;text_norm.setAlignHoriz('left')" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="text_align_5" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
   </Routines>
   <Flow>
     <Routine name="instruction"/>
+    <Routine name="instruction2"/>
     <Routine name="manage_serial"/>
     <Routine name="blank"/>
     <LoopInitiator loopType="TrialHandler" name="session">
