@@ -21,3 +21,8 @@ pyrun ./rhythm_trial_exp_lastrun.py
 - インストラクション→3秒→trial→2秒
 - https://pressrelease.brainproducts.com/triggerbox2/
 - コントロール実験大事に
+
+
+## メモ
+
+- リズムのパターンは [The sensation of groove engages motor and reward networks, Fig1](https://doi.org/10.1016/j.neuroimage.2020.116768)から
