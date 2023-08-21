@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Aug 21 12:27:21 2023
+    on Mon Aug 21 12:41:47 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -35,15 +35,22 @@ import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
 # Run 'Before Experiment' code from code
+import sys
 import time
 import threading
-from serial import Serial
-from rhythm_trial_code.dummy_serial import Serial
+
 from rhythm_trial_code.message import play_trigger_factory
+from rhythm_trial_code.serial_trigger import init_port
 
-port = Serial("COM3")
-play_trigger_meta = play_trigger_factory(port, [4])
+debug = False
+if len(sys.argv) > 1:
+    if sys.argv[-1] == "DEBUG":
+        debug = True
 
+port = init_port("COM03", dummy=debug)
+
+_play_trigger_meta = play_trigger_factory(port, [4])
+play_trigger_meta = lambda: _play_trigger_meta(True)
 # reset Port
 port.write([0x00])
 

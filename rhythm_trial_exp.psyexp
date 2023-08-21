@@ -508,7 +508,7 @@
     </Routine>
     <Routine name="manage_serial">
       <CodeComponent name="code" plugin="None">
-        <Param val="import sys&amp;#10;import time&amp;#10;import threading&amp;#10;&amp;#10;from rhythm_trial_code.message import play_trigger_factory&amp;#10;from serial import Serial&amp;#10;&amp;#10;if len(sys.argv) &gt; 1 and sys.argv[-1] == &quot;DEBUG&quot;:&amp;#10;    from rhythm_trial_code.dummy_serial import DummySerial&amp;#10;    Serial = DummySerial&amp;#10;&amp;#10;port = Serial(&quot;COM3&quot;)&amp;#10;play_trigger_meta = play_trigger_factory(port, [4])&amp;#10;&amp;#10;# reset Port&amp;#10;port.write([0x00])&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="import sys&amp;#10;import time&amp;#10;import threading&amp;#10;&amp;#10;from rhythm_trial_code.message import play_trigger_factory&amp;#10;from rhythm_trial_code.serial_trigger import init_port&amp;#10;&amp;#10;debug = False&amp;#10;if len(sys.argv) &gt; 1:&amp;#10;    if sys.argv[-1] == &quot;DEBUG&quot;:&amp;#10;        debug = True&amp;#10;&amp;#10;port = init_port(&quot;COM03&quot;, dummy=debug)&amp;#10;&amp;#10;_play_trigger_meta = play_trigger_factory(port, [4])&amp;#10;play_trigger_meta = lambda: _play_trigger_meta(True)&amp;#10;# reset Port&amp;#10;port.write([0x00])&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
