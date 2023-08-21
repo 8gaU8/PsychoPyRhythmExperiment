@@ -3,10 +3,10 @@ from pathlib import Path
 
 import numpy as np
 
-NB_EXP = 5
-NB_TRIALS = 3
+NB_TRIALS = 12
+NB_SESSIONS = 10
 
-INITIAL_SEED = 2
+INITIAL_SEED = 3
 
 MOVE_MSGS = "MOVE"
 STOP_MSGS = "DON'T MOVE"
@@ -15,7 +15,7 @@ REST_MSGS = "REST"
 
 def main():
     content = "trials_file_name\n"
-    for exp in range(NB_EXP):
+    for exp in range(NB_SESSIONS):
         line = f"exp_params/{exp}.csv\n"
         content += line
 
@@ -26,7 +26,7 @@ def main():
 
     param_dir = Path("exp_params")
     param_dir.mkdir(exist_ok=True)
-    for seed in range(NB_EXP):
+    for seed in range(NB_SESSIONS):
         file_name = param_dir / f"{seed}.csv"
 
         np.random.seed(seed)
