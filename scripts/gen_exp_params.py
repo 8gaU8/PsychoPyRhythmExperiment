@@ -31,6 +31,7 @@ def main():
 
         np.random.seed(seed)
         delays_ary = np.random.normal(loc=0, scale=0.1, size=NB_TRIALS)
+        delays_ary = np.random.uniform(low=-0.2, high=0.2, size=NB_TRIALS)
 
         b_ary = (delays_ary < 0).astype("int") * (-1)
         n_ary = (delays_ary > 0).astype("int")
@@ -44,10 +45,9 @@ def main():
 
         random.seed(seed * 20)
         msgs_ary = (
-            [MOVE_MSGS] * 66
-            + [STOP_MSGS] * 66
-            + [REST_MSGS] * 66
-            + random.choices((MOVE_MSGS, STOP_MSGS, REST_MSGS), k=2)
+            [MOVE_MSGS] * (NB_TRIALS//3)
+            + [STOP_MSGS] * (NB_TRIALS//3)
+            + [REST_MSGS] * (NB_TRIALS//3)
         )
         random.shuffle(msgs_ary)
 
