@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Aug 21 12:39:07 2023
+    on Sat Aug 26 09:11:21 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -56,8 +56,11 @@ port.write([0x00])
 
 
 # Run 'Before Experiment' code from sound_stim
-import sys
-sys.path.append("./pkgs")
+from pathlib import Path as _Path
+import sys as _sys
+
+_pkg_path = str(_Path(__file__).parent / 'pkgs')
+_sys.path.append(_pkg_path)
 
 from rhythm_trial_code.main import run_stim
 
@@ -199,6 +202,15 @@ cross_colored = visual.ShapeStim(
     opacity=None, depth=-1.0, interpolate=True)
 key_resp = keyboard.Keyboard()
 key_resp_moving = keyboard.Keyboard()
+
+# --- Initialize components for Routine "notify_corr" ---
+ans_text = visual.TextStim(win=win, name='ans_text',
+    text='',
+    font='Osaka',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='white', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
 
 # --- Initialize components for Routine "break_section" ---
 text_norm_2 = visual.TextStim(win=win, name='text_norm_2',
@@ -756,6 +768,10 @@ for thisSession in session:
         trials.addData('stim.ans', ans)
         trials.addData('stim.msg', msg)
         
+        ans_msg = "不正解"
+        if key_resp.corr == 1:
+            ans_msg = "正解"
+        
         # keep track of which components have finished
         trialComponents = [cross_white_2, cross_colored, key_resp, key_resp_moving]
         for thisComponent in trialComponents:
@@ -898,6 +914,82 @@ for thisSession in session:
         win.flip()
         # the Routine "trial" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
+        
+        # --- Prepare to start Routine "notify_corr" ---
+        continueRoutine = True
+        routineForceEnded = False
+        # update component parameters for each repeat
+        ans_text.setText(ans_msg)
+        # keep track of which components have finished
+        notify_corrComponents = [ans_text]
+        for thisComponent in notify_corrComponents:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "notify_corr" ---
+        while continueRoutine and routineTimer.getTime() < 1.0:
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *ans_text* updates
+            if ans_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                ans_text.frameNStart = frameN  # exact frame index
+                ans_text.tStart = t  # local t and not account for scr refresh
+                ans_text.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(ans_text, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'ans_text.started')
+                ans_text.setAutoDraw(True)
+            if ans_text.status == STARTED:
+                # is it time to stop? (based on global clock, using actual start)
+                if tThisFlipGlobal > ans_text.tStartRefresh + 1.0-frameTolerance:
+                    # keep track of stop time/frame for later
+                    ans_text.tStop = t  # not accounting for scr refresh
+                    ans_text.frameNStop = frameN  # exact frame index
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'ans_text.stopped')
+                    ans_text.setAutoDraw(False)
+            
+            # check for quit (typically the Esc key)
+            if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+                core.quit()
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in notify_corrComponents:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "notify_corr" ---
+        for thisComponent in notify_corrComponents:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
+        if routineForceEnded:
+            routineTimer.reset()
+        else:
+            routineTimer.addTime(-1.000000)
         thisExp.nextEntry()
         
     # completed 1.0 repeats of 'trials'
