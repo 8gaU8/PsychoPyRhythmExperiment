@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Fri Aug 25 10:36:37 2023
+    on Thu Sep  7 20:07:00 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -39,7 +39,7 @@ import sys
 import time
 import threading
 
-from rhythm_trial_code.message import play_trigger_factory
+from rhythm_trial_code.message import PlayFactories as _PF
 from rhythm_trial_code.serial_trigger import init_port
 
 debug = False
@@ -49,8 +49,9 @@ if len(sys.argv) > 1:
 
 port = init_port("COM03", dummy=debug)
 
-_play_trigger_meta = play_trigger_factory(port, [4])
+_play_trigger_meta = _PF([]).trig_fctr(port, [4])
 play_trigger_meta = lambda: _play_trigger_meta(True)
+
 # reset Port
 port.write([0x00])
 
@@ -60,6 +61,7 @@ import sys
 sys.path.append("./pkgs")
 
 from rhythm_trial_code.main import run_stim
+
 
 
 # Ensure that relative paths start from the same directory as this script
@@ -747,7 +749,7 @@ for thisSession in session:
         # Run 'Begin Routine' code from sound_stim
         sound_stim_started_time = core.getTime()
         play_trigger_meta()
-        run_stim(port=port,delay=delay, scale=scale, stim_sound_file='./sound/SD0050.WAV', sound=msg!="REST")
+        run_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'], sound=msg!="REST")
         sound_stim_end_time = core.getTime()
         trials.addData('stim.start_time', sound_stim_started_time)
         trials.addData('stim.end_time', sound_stim_end_time)
