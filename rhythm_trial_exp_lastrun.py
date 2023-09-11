@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Sep  7 20:07:27 2023
+    on Mon Sep 11 15:55:11 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -102,7 +102,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1440, 900], fullscr=True, screen=0, 
+    size=[1920, 1080], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
     blendMode='avg', useFBO=True, 
@@ -176,7 +176,7 @@ text_norm_4 = visual.TextStim(win=win, name='text_norm_4',
 # Code components should usually appear at the top
 # of the routine. This one has to appear after the
 # text component it refers to.
-text_norm.alignText= 'left'
+text_norm_4.alignText= 'left'
 
 # --- Initialize components for Routine "fixation_cross" ---
 cross_white = visual.ShapeStim(
@@ -215,7 +215,7 @@ key_instruct_2 = keyboard.Keyboard()
 # Code components should usually appear at the top
 # of the routine. This one has to appear after the
 # text component it refers to.
-text_norm.alignText= 'center'
+text_norm_2.alignText= 'center'
 
 # --- Initialize components for Routine "blank" ---
 ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
