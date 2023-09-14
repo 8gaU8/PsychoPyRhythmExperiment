@@ -3,8 +3,8 @@ from pathlib import Path
 
 import numpy as np
 
-NB_TRIALS = 18
-NB_SESSIONS = 10
+NB_TRIALS = 30
+NB_SESSIONS = 5
 
 INITIAL_SEED = 3
 
@@ -45,9 +45,9 @@ def main():
 
         random.seed(seed * 20)
         msgs_ary = (
-            [MOVE_MSGS] * (NB_TRIALS//3)
-            + [STOP_MSGS] * (NB_TRIALS//3)
-            + [REST_MSGS] * (NB_TRIALS//3)
+            [MOVE_MSGS] * (NB_TRIALS // 3)
+            + [STOP_MSGS] * (NB_TRIALS // 3)
+            + [REST_MSGS] * (NB_TRIALS // 3)
         )
         random.shuffle(msgs_ary)
 
