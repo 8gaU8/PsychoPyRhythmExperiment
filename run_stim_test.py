@@ -1,6 +1,7 @@
 from time import sleep
+import time
 
-from rhythm_trial_code.main import run_stim
+from rhythm_trial_code.main import build_stim, play_stim
 from rhythm_trial_code.message import PlayFactories as _PF
 from rhythm_trial_code.serial_trigger import init_port
 
@@ -15,23 +16,26 @@ def main():
         delay = -0.152690
         delay = -0.2
         scale = 1.2
-        run_stim(
+
+        stim = build_stim(
             port,
             delay=delay,
             scale=scale,
             soundfiles=["./sound/SD1010.WAV", "./sound/SD0050.WAV"],
-            sound=True,
         )
+        t0 = time.time()
+        play_stim(stim_series=stim, sound=True)
+        print(time.time() - t0)
         sleep(1.0)
-        scale = 1
-        delay = 0
-        run_stim(
-            port,
-            delay=delay,
-            scale=scale,
-            soundfiles=["./sound/SD1010.WAV", "./sound/SD0050.WAV"],
-            sound=True,
-        )
+        # scale = 1
+        # delay = 0
+        # run_stim(
+        #     port,
+        #     delay=delay,
+        #     scale=scale,
+        #     soundfiles=["./sound/SD1010.WAV", "./sound/SD0050.WAV"],
+        #     sound=True,
+        # )
     finally:
         port.write([0])
         port.close()
