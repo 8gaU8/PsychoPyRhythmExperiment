@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Sep 11 15:54:50 2023
+    on Thu Sep 14 09:06:40 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -34,14 +34,16 @@ import sys  # to get file system encoding
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
-# Run 'Before Experiment' code from code
+# Run 'Before Experiment' code from init_modules
 import sys
 import time
 import threading
 
+sys.path.append('./pkgs')
+
 from rhythm_trial_code.message import PlayFactories as _PF
 from rhythm_trial_code.serial_trigger import init_port
-
+from rhythm_trial_code.main import build_stim, play_stim
 debug = False
 if len(sys.argv) > 1:
     if sys.argv[-1] == "DEBUG":
@@ -55,12 +57,6 @@ play_trigger_meta = lambda: _play_trigger_meta(True)
 # reset Port
 port.write([0x00])
 
-
-# Run 'Before Experiment' code from sound_stim
-import sys
-sys.path.append("./pkgs")
-
-from rhythm_trial_code.main import run_stim
 
 
 
@@ -159,7 +155,7 @@ key_instruct_4 = keyboard.Keyboard()
 # text component it refers to.
 text_norm_5.alignText= 'left'
 
-# --- Initialize components for Routine "manage_serial" ---
+# --- Initialize components for Routine "prepare" ---
 
 # --- Initialize components for Routine "blank" ---
 ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
@@ -176,7 +172,7 @@ text_norm_4 = visual.TextStim(win=win, name='text_norm_4',
 # Code components should usually appear at the top
 # of the routine. This one has to appear after the
 # text component it refers to.
-text_norm_4.alignText= 'left'
+text_norm_4.alignText= 'center'
 
 # --- Initialize components for Routine "fixation_cross" ---
 cross_white = visual.ShapeStim(
@@ -420,13 +416,13 @@ thisExp.nextEntry()
 # the Routine "instruction2" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
-# --- Prepare to start Routine "manage_serial" ---
+# --- Prepare to start Routine "prepare" ---
 continueRoutine = True
 routineForceEnded = False
 # update component parameters for each repeat
 # keep track of which components have finished
-manage_serialComponents = []
-for thisComponent in manage_serialComponents:
+prepareComponents = []
+for thisComponent in prepareComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
     thisComponent.tStartRefresh = None
@@ -438,7 +434,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
-# --- Run Routine "manage_serial" ---
+# --- Run Routine "prepare" ---
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -456,7 +452,7 @@ while continueRoutine:
         routineForceEnded = True
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in manage_serialComponents:
+    for thisComponent in prepareComponents:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -465,11 +461,11 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# --- Ending Routine "manage_serial" ---
-for thisComponent in manage_serialComponents:
+# --- Ending Routine "prepare" ---
+for thisComponent in prepareComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "manage_serial" was not non-slip safe, so reset the non-slip timer
+# the Routine "prepare" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- Prepare to start Routine "blank" ---
@@ -583,8 +579,10 @@ for thisSession in session:
         routineForceEnded = False
         # update component parameters for each repeat
         text_norm_4.setText(msg)
-        # Run 'Begin Routine' code from code_2
+        # Run 'Begin Routine' code from build_stim
+        stim = build_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'])
         play_trigger_meta()
+        
         # keep track of which components have finished
         trial_instComponents = [text_norm_4]
         for thisComponent in trial_instComponents:
@@ -660,7 +658,7 @@ for thisSession in session:
         continueRoutine = True
         routineForceEnded = False
         # update component parameters for each repeat
-        # Run 'Begin Routine' code from code_3
+        # Run 'Begin Routine' code from trig_on_fix
         play_trigger_meta()
         # keep track of which components have finished
         fixation_crossComponents = [cross_white]
@@ -749,7 +747,7 @@ for thisSession in session:
         # Run 'Begin Routine' code from sound_stim
         sound_stim_started_time = core.getTime()
         play_trigger_meta()
-        run_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'], sound=msg!="REST")
+        play_stim(stim_series=stim, sound=msg!="REST")
         sound_stim_end_time = core.getTime()
         trials.addData('stim.start_time', sound_stim_started_time)
         trials.addData('stim.end_time', sound_stim_end_time)
@@ -1172,7 +1170,7 @@ for thisComponent in ending_messageComponents:
         thisComponent.setAutoDraw(False)
 # the Routine "ending_message" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
-# Run 'End Experiment' code from code
+# Run 'End Experiment' code from init_modules
 # Close the serial port
 port.write([0])
 port.close()
