@@ -183,7 +183,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="delay = delay_series[sound_stim_routine_index]&amp;#10;scale = scale_series[sound_stim_routine_index]&amp;#10;run_stim(delay=delay, scale=scale)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;sound_stim_routine_index += 1" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="sound_stim_started_time = core.getTime()&amp;#10;play_trigger_meta()&amp;#10;play_stim(stim_series=stim, sound=msg!=&quot;REST&quot;)&amp;#10;#run_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'], sound=msg!=&quot;REST&quot;)&amp;#10;sound_stim_end_time = core.getTime()&amp;#10;trials.addData('stim.start_time', sound_stim_started_time)&amp;#10;trials.addData('stim.end_time', sound_stim_end_time)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;trials.addData('stim.ans', ans)&amp;#10;trials.addData('stim.msg', msg)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="sound_stim_started_time = core.getTime()&amp;#10;play_trigger_on_stim_start()&amp;#10;play_stim(stim_series=stim, sound=msg!=&quot;REST&quot;)&amp;#10;play_trigger_on_end()&amp;#10;#run_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'], sound=msg!=&quot;REST&quot;)&amp;#10;sound_stim_end_time = core.getTime()&amp;#10;trials.addData('stim.start_time', sound_stim_started_time)&amp;#10;trials.addData('stim.end_time', sound_stim_end_time)&amp;#10;trials.addData('stim.delay', delay)&amp;#10;trials.addData('stim.scale', scale)&amp;#10;trials.addData('stim.ans', ans)&amp;#10;trials.addData('stim.msg', msg)&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -433,7 +433,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="play_trigger_meta()" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="play_trigger_meta()" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="play_trigger_on_cross()" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -494,7 +494,7 @@
         <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="play_trigger_meta" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="stim = build_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'])&amp;#10;play_trigger_meta()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="stim = build_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'])&amp;#10;play_trigger_on_start()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Py" valType="str" updates="None" name="Code Type"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
         <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
@@ -504,25 +504,6 @@
         <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
         <Param val="False" valType="bool" updates="None" name="disabled"/>
         <Param val="build_stim" valType="code" updates="None" name="name"/>
-      </CodeComponent>
-    </Routine>
-    <Routine name="manage_serial">
-      <CodeComponent name="init_modules" plugin="None">
-        <Param val="import sys&amp;#10;import time&amp;#10;import threading&amp;#10;sys.path.append(&quot;./pkgs&quot;)&amp;#10;&amp;#10;from rhythm_trial_code.main import build_stim, play_stim&amp;#10;from rhythm_trial_code.message import PlayFactories as _PF&amp;#10;from rhythm_trial_code.serial_trigger import init_port&amp;#10;&amp;#10;debug = False&amp;#10;if len(sys.argv) &gt; 1:&amp;#10;    if sys.argv[-1] == &quot;DEBUG&quot;:&amp;#10;        debug = True&amp;#10;&amp;#10;port = init_port(&quot;COM03&quot;, dummy=debug)&amp;#10;&amp;#10;_play_trigger_meta = _PF([]).trig_fctr(port, [4])&amp;#10;play_trigger_meta = lambda: _play_trigger_meta(True)&amp;#10;&amp;#10;# reset Port&amp;#10;port.write([0x00])&amp;#10;&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
-        <Param val="Py" valType="str" updates="None" name="Code Type"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
-        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
-        <Param val="# Close the serial port&amp;#10;port.write([0])&amp;#10;port.close()" valType="extendedCode" updates="constant" name="End Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
-        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
-        <Param val="False" valType="bool" updates="None" name="disabled"/>
-        <Param val="init_modules" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
     <Routine name="instruction2">
@@ -607,9 +588,28 @@
         <Param val="del_test_data_2" valType="code" updates="None" name="name"/>
       </CodeComponent>
     </Routine>
+    <Routine name="prepare">
+      <CodeComponent name="init_modules" plugin="None">
+        <Param val="import sys&amp;#10;import time&amp;#10;sys.path.append(&quot;./pkgs&quot;)&amp;#10;&amp;#10;from rhythm_trial_code.main import build_stim, play_stim&amp;#10;from rhythm_trial_code.message import PlayFactories as _PF&amp;#10;from rhythm_trial_code.serial_trigger import init_port&amp;#10;&amp;#10;debug = False&amp;#10;port_name = &quot;COM3&quot;&amp;#10;if len(sys.argv) &gt; 1:&amp;#10;    if sys.argv[-1] == &quot;DEBUG&quot;:&amp;#10;        debug = True&amp;#10;    else:&amp;#10;        port_name = sys.argv[-1]&amp;#10;&amp;#10;port = init_port(port_name, dummy=debug)&amp;#10;&amp;#10;_play_trigger_on_cross = _PF([]).trig_fctr(port, [4])&amp;#10;play_trigger_on_cross = lambda: _play_trigger_on_cross(True)&amp;#10;&amp;#10;_play_trigger_on_start = _PF([]).trig_fctr(port, [5])&amp;#10;play_trigger_on_start = lambda: _play_trigger_on_start(True)&amp;#10;&amp;#10;_play_trigger_on_stim_start= _PF([]).trig_fctr(port, [6])&amp;#10;play_trigger_on_stim_start = lambda: _play_trigger_on_stim_start(True)&amp;#10;&amp;#10;_play_trigger_on_ans = _PF([]).trig_fctr(port, [7])&amp;#10;play_trigger_on_ans = lambda: _play_trigger_on_ans(True)&amp;#10;&amp;#10;_play_trigger_on_move = _PF([]).trig_fctr(port, [8])&amp;#10;play_trigger_on_move = lambda: _play_trigger_on_move(True)&amp;#10;&amp;#10;_play_trigger_on_ans_enabled = _PF([]).trig_fctr(port, [9])&amp;#10;play_trigger_on_ans_enabled = lambda: _play_trigger_on_ans_enabled(True)&amp;#10;&amp;#10;_play_trigger_on_end = _PF([]).trig_fctr(port, [10])&amp;#10;play_trigger_on_end = lambda: _play_trigger_on_end(True)&amp;#10;&amp;#10;&amp;#10;# reset Port&amp;#10;port.write([0])&amp;#10;" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="# Close the serial port&amp;#10;port.write([0])&amp;#10;port.close()" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="init_modules" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
   </Routines>
   <Flow>
-    <Routine name="manage_serial"/>
+    <Routine name="prepare"/>
     <Routine name="blank"/>
     <LoopInitiator loopType="TrialHandler" name="trials">
       <Param name="Selected rows" updates="None" val="" valType="str"/>

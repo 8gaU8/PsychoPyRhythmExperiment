@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Sep 14 09:15:32 2023
+    on Thu Sep 14 11:34:36 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -37,7 +37,6 @@ from psychopy.hardware import keyboard
 # Run 'Before Experiment' code from init_modules
 import sys
 import time
-import threading
 sys.path.append("./pkgs")
 
 from rhythm_trial_code.main import build_stim, play_stim
@@ -45,18 +44,39 @@ from rhythm_trial_code.message import PlayFactories as _PF
 from rhythm_trial_code.serial_trigger import init_port
 
 debug = False
+port_name = "COM3"
 if len(sys.argv) > 1:
     if sys.argv[-1] == "DEBUG":
         debug = True
+    else:
+        port_name = sys.argv[-1]
 
-port = init_port("COM03", dummy=debug)
+port = init_port(port_name, dummy=debug)
 
-_play_trigger_meta = _PF([]).trig_fctr(port, [4])
-play_trigger_meta = lambda: _play_trigger_meta(True)
+_play_trigger_on_cross = _PF([]).trig_fctr(port, [4])
+play_trigger_on_cross = lambda: _play_trigger_on_cross(True)
+
+_play_trigger_on_start = _PF([]).trig_fctr(port, [5])
+play_trigger_on_start = lambda: _play_trigger_on_start(True)
+
+_play_trigger_on_stim_start= _PF([]).trig_fctr(port, [6])
+play_trigger_on_stim_start = lambda: _play_trigger_on_stim_start(True)
+
+_play_trigger_on_ans = _PF([]).trig_fctr(port, [7])
+play_trigger_on_ans = lambda: _play_trigger_on_ans(True)
+
+_play_trigger_on_move = _PF([]).trig_fctr(port, [8])
+play_trigger_on_move = lambda: _play_trigger_on_move(True)
+
+_play_trigger_on_ans_enabled = _PF([]).trig_fctr(port, [9])
+play_trigger_on_ans_enabled = lambda: _play_trigger_on_ans_enabled(True)
+
+_play_trigger_on_end = _PF([]).trig_fctr(port, [10])
+play_trigger_on_end = lambda: _play_trigger_on_end(True)
+
 
 # reset Port
-port.write([0x00])
-
+port.write([0])
 
 
 
@@ -124,7 +144,7 @@ eyetracker = None
 # create a default keyboard (e.g. to check for escape)
 defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
-# --- Initialize components for Routine "manage_serial" ---
+# --- Initialize components for Routine "prepare" ---
 
 # --- Initialize components for Routine "blank" ---
 ISI = clock.StaticPeriod(win=win, screenHz=expInfo['frameRate'], name='ISI')
@@ -186,13 +206,13 @@ text_norm_3.alignText= 'center'
 globalClock = core.Clock()  # to track the time since experiment started
 routineTimer = core.Clock()  # to track time remaining of each (possibly non-slip) routine 
 
-# --- Prepare to start Routine "manage_serial" ---
+# --- Prepare to start Routine "prepare" ---
 continueRoutine = True
 routineForceEnded = False
 # update component parameters for each repeat
 # keep track of which components have finished
-manage_serialComponents = []
-for thisComponent in manage_serialComponents:
+prepareComponents = []
+for thisComponent in prepareComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
     thisComponent.tStartRefresh = None
@@ -204,7 +224,7 @@ t = 0
 _timeToFirstFrame = win.getFutureFlipTime(clock="now")
 frameN = -1
 
-# --- Run Routine "manage_serial" ---
+# --- Run Routine "prepare" ---
 while continueRoutine:
     # get current time
     t = routineTimer.getTime()
@@ -222,7 +242,7 @@ while continueRoutine:
         routineForceEnded = True
         break
     continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in manage_serialComponents:
+    for thisComponent in prepareComponents:
         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
             continueRoutine = True
             break  # at least one component has not yet finished
@@ -231,11 +251,11 @@ while continueRoutine:
     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
         win.flip()
 
-# --- Ending Routine "manage_serial" ---
-for thisComponent in manage_serialComponents:
+# --- Ending Routine "prepare" ---
+for thisComponent in prepareComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-# the Routine "manage_serial" was not non-slip safe, so reset the non-slip timer
+# the Routine "prepare" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- Prepare to start Routine "blank" ---
@@ -332,7 +352,7 @@ for thisTrial in trials:
     text_norm_4.setText(msg)
     # Run 'Begin Routine' code from build_stim
     stim = build_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'])
-    play_trigger_meta()
+    play_trigger_on_start()
     
     # keep track of which components have finished
     trial_instComponents = [text_norm_4]
@@ -410,7 +430,7 @@ for thisTrial in trials:
     routineForceEnded = False
     # update component parameters for each repeat
     # Run 'Begin Routine' code from trig_on_fix
-    play_trigger_meta()
+    play_trigger_on_cross()
     # keep track of which components have finished
     fixation_crossComponents = [cross_white]
     for thisComponent in fixation_crossComponents:
@@ -497,8 +517,9 @@ for thisTrial in trials:
     win.flip()
     # Run 'Begin Routine' code from sound_stim
     sound_stim_started_time = core.getTime()
-    play_trigger_meta()
+    play_trigger_on_stim_start()
     play_stim(stim_series=stim, sound=msg!="REST")
+    play_trigger_on_end()
     #run_stim(port=port, delay=delay, scale=scale, soundfiles=['./sound/SD1010.WAV','./sound/SD0050.WAV'], sound=msg!="REST")
     sound_stim_end_time = core.getTime()
     trials.addData('stim.start_time', sound_stim_started_time)
@@ -568,10 +589,12 @@ for thisTrial in trials:
             waitOnFlip = True
             win.callOnFlip(key_resp.clock.reset)  # t=0 on next screen flip
             win.callOnFlip(key_resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            play_trigger_on_ans_enabled()
         if key_resp.status == STARTED and not waitOnFlip:
             theseKeys = key_resp.getKeys(keyList=['b', 'n'], waitRelease=False)
             _key_resp_allKeys.extend(theseKeys)
             if len(_key_resp_allKeys):
+                play_trigger_on_ans()
                 key_resp.keys = _key_resp_allKeys[-1].name  # just the last key pressed
                 key_resp.rt = _key_resp_allKeys[-1].rt
                 # was this correct?
