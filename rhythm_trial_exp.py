@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Sep 14 11:37:50 2023
+    on September 21, 2023, at 12:33
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -104,7 +104,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath='/Users/hagayuya/Devs/NIDLab/PsychoPyRhythmExperiment/rhythm_trial_exp.py',
+    originPath='D:\\data\\haga\\PsychoPyRhythmExperiment\\rhythm_trial_exp.py',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 # save a log file for detail verbose info
@@ -118,7 +118,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 
 # --- Setup the Window ---
 win = visual.Window(
-    size=[1920, 1080], fullscr=True, screen=0, 
+    size=[1680, 1050], fullscr=True, screen=1, 
     winType='pyglet', allowStencil=False,
     monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
     blendMode='avg', useFBO=True, 
@@ -220,7 +220,7 @@ key_resp_moving = keyboard.Keyboard()
 
 # --- Initialize components for Routine "break_section" ---
 text_norm_2 = visual.TextStim(win=win, name='text_norm_2',
-    text='休憩\n\n\nスペースキーを押して再開\n',
+    text='休憩\n',
     font='Osaka',
     units='norm', pos=(0, 0), height=0.1, wrapWidth=1.8, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
